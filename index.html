@@ -84,6 +84,128 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,"PingFang 
 .sim-done-box p{color:var(--text2);font-size:14px;margin-bottom:16px}
 .sim-done-score{font-size:40px;font-weight:800;color:var(--green);margin:12px 0}
 .sim-done-btn{padding:10px 24px;background:var(--green);color:#fff;border:none;border-radius:20px;font-size:15px;font-weight:600;cursor:pointer;margin-top:4px}
+
+/* ═══════════════════════════════
+   頁面級 Tab（題庫 ↔ 字卡）
+═══════════════════════════════ */
+.pagetabs{display:flex;background:#1a4b2e;border-bottom:2px solid rgba(255,255,255,.15)}
+.pagetab{flex:1;padding:9px 4px;text-align:center;font-size:14px;font-weight:700;
+  color:rgba(255,255,255,.55);cursor:pointer;border:none;background:none;
+  border-bottom:3px solid transparent;transition:all .15s;letter-spacing:.02em}
+.pagetab.active{color:#fff;border-bottom-color:#7FFAB0}
+.pagetab:hover:not(.active){color:rgba(255,255,255,.8)}
+
+/* ─── 字卡模組容器（預設隱藏） ─── */
+#cardModule{display:none}
+#qbModule{display:block}
+
+/* ═══════════════════════════════
+   字卡樣式（獨立命名空間 ck- 前綴）
+═══════════════════════════════ */
+.ck-tabs{display:flex;background:#fff;border-bottom:2px solid var(--border);
+  position:sticky;top:54px;z-index:89;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.ck-tab{flex:1;padding:10px 4px;text-align:center;font-size:13px;font-weight:600;
+  color:#999;cursor:pointer;border:none;background:none;
+  border-bottom:3px solid transparent;transition:all .15s}
+.ck-tab.active{color:var(--green);border-bottom-color:var(--green)}
+
+.ck-fbar{padding:8px 14px;background:#fff;border-bottom:1px solid var(--border);
+  display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.ck-fl{font-size:11px;color:#999;margin-right:2px;white-space:nowrap}
+.ck-chip{padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;
+  border:1.5px solid var(--border);background:#fff;color:#666;
+  cursor:pointer;transition:all .15s;user-select:none;white-space:nowrap}
+.ck-chip.on{background:var(--green);border-color:var(--green);color:#fff}
+.ck-chip.amber.on{background:#B45309;border-color:#B45309;color:#fff}
+.ck-chip.blue.on{background:#1A4B8C;border-color:#1A4B8C;color:#fff}
+
+.ck-cntbar{padding:5px 14px;font-size:12px;color:#999;
+  background:var(--bg);border-bottom:1px solid var(--border)}
+
+/* ── 公式速查 ── */
+#ck-formula{display:none;padding:12px 14px;gap:10px;flex-direction:column}
+.ck-fc{background:#fff;border-radius:12px;border:1px solid var(--border);overflow:hidden;margin-bottom:2px}
+.ck-fc-head{padding:10px 14px;color:#fff;font-size:13px;font-weight:700;
+  display:flex;align-items:center;gap:8px;cursor:pointer}
+.ck-fc-body{padding:12px 14px;font-size:13.5px;white-space:pre-wrap;line-height:1.85;
+  font-family:"SF Mono","Menlo",monospace}
+.ck-hf-badge{margin-left:auto;font-size:10px;background:rgba(255,255,255,.25);
+  padding:1px 7px;border-radius:10px}
+
+/* ── 閃卡 ── */
+#ck-flash{display:none;padding:12px 14px}
+.ck-fnav{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.ck-prog{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.ck-prog-fill{height:100%;background:var(--green);border-radius:3px;transition:width .3s}
+.ck-cnt{font-size:12px;color:#999;min-width:48px;text-align:right}
+.ck-area{perspective:800px;min-height:260px;cursor:pointer}
+.ck-inner{position:relative;width:100%;transform-style:preserve-3d;
+  transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.ck-inner.flipped{transform:rotateY(180deg)}
+.ck-front,.ck-back{width:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:16px;padding:26px 20px;border:1px solid var(--border);
+  min-height:260px;display:flex;flex-direction:column;justify-content:center}
+.ck-front{background:#fff;text-align:center}
+.ck-back{background:#EEF3FB;border-color:#C5D8F0;
+  position:absolute;top:0;left:0;transform:rotateY(180deg)}
+.ck-sub-tag{font-size:11px;color:#999;margin-bottom:14px}
+.ck-q{font-size:17px;font-weight:700;line-height:1.5;color:var(--text)}
+.ck-hint{font-size:12px;color:#999;margin-top:16px;opacity:.65}
+.ck-ans-lbl{font-size:11px;font-weight:700;color:#1A4B8C;margin-bottom:10px;letter-spacing:.05em}
+.ck-ans{font-size:13.5px;white-space:pre-wrap;line-height:1.85;color:var(--text)}
+.ck-btns{display:flex;gap:10px;margin-top:14px}
+.ck-btn{flex:1;padding:11px 8px;border-radius:12px;border:none;
+  font-size:13px;font-weight:700;cursor:pointer;transition:all .12s}
+.ck-btn.again{background:#FDECEA;color:#C0392B}
+.ck-btn.got{background:#EAF2ED;color:var(--green)}
+.ck-btn:active{transform:scale(.97)}
+.ck-done{text-align:center;padding:36px 20px;background:#fff;border-radius:16px;border:1px solid var(--border)}
+.ck-done h2{font-size:20px;margin-bottom:6px}
+.ck-done p{color:#666;font-size:14px;margin-bottom:18px}
+.ck-restart{padding:10px 24px;background:var(--green);color:#fff;border:none;
+  border-radius:20px;font-size:14px;font-weight:700;cursor:pointer}
+
+.ck-subfilter{display:flex;gap:5px;flex-wrap:wrap;padding:7px 14px;
+  border-bottom:1px solid var(--border);background:#fff}
+
+/* ── 知識地圖 ── */
+#ck-map{display:none;padding:12px 14px;flex-direction:column;gap:8px}
+.ck-mg{background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden}
+.ck-mg-head{padding:12px 14px;display:flex;align-items:center;gap:10px;
+  cursor:pointer;user-select:none}
+.ck-icon{width:34px;height:34px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.ck-mg-title{font-size:15px;font-weight:700;flex:1}
+.ck-mg-badge{font-size:11px;color:#999;padding:2px 8px;background:var(--bg);border-radius:10px}
+.ck-mg-arr{font-size:13px;color:#999;transition:transform .2s;margin-left:4px}
+.ck-mg-head.open .ck-mg-arr{transform:rotate(180deg)}
+.ck-mg-body{display:none;padding:0 14px 12px}
+.ck-mg-body.show{display:block}
+.ck-mi{border-radius:10px;padding:10px 12px;margin-top:7px;cursor:pointer;
+  transition:all .15s;border:1px solid var(--border);background:var(--bg)}
+.ck-mi:hover{background:#EAF2ED;border-color:var(--green)}
+.ck-mi-title{font-size:13px;font-weight:700}
+.ck-mi-pre{font-size:12px;color:#999;margin-top:3px;line-height:1.5}
+.ck-tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:8px;
+  margin-right:4px;font-weight:700}
+.ck-tag.formula{background:#EEF3FB;color:#1A4B8C}
+.ck-tag.flash{background:#EAF2ED;color:var(--green)}
+.ck-tag.map{background:#FEF3C7;color:#B45309}
+.ck-tag.hf{background:#B45309;color:#fff}
+
+/* ── 詳情 overlay ── */
+.ck-ov{position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:300;
+  display:none;align-items:flex-end}
+.ck-ov.show{display:flex}
+.ck-ov-box{background:#fff;border-radius:20px 20px 0 0;
+  padding:20px 18px 36px;width:100%;max-height:82vh;overflow-y:auto}
+.ck-ov-mode{font-size:10px;font-weight:700;letter-spacing:.08em;color:#999;margin-bottom:6px}
+.ck-ov-title{font-size:17px;font-weight:700;margin-bottom:14px;line-height:1.4}
+.ck-ov-content{font-size:13.5px;white-space:pre-wrap;line-height:1.85;color:var(--text)}
+.ck-ov-close{display:block;width:100%;padding:12px;margin-top:18px;
+  background:var(--green);color:#fff;border:none;border-radius:12px;
+  font-size:14px;font-weight:700;cursor:pointer}
+
 </style>
 </head>
 <body>
@@ -91,6 +213,14 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,"PingFang 
   <h1>水土保持技師 完整題庫</h1>
   <p>111 · 112 · 113 · 114年 × 5科（不含測量學）｜考古原題＋Claude自出題</p>
 </div>
+
+<div class="pagetabs">
+  <button class="pagetab active" onclick="showPage('qb')">📚 題庫</button>
+  <button class="pagetab" onclick="showPage('cards')">🃏 關鍵字卡</button>
+</div>
+
+<div id="qbModule">
+
 <div class="fbar">
   <span class="flabel">科目</span><div class="chips" id="sc"></div>
 </div>
@@ -1990,6 +2120,1366 @@ if (document.readyState === 'loading') {
   initApp();
 }
 
+
+
+// ════════════════════════════════════════
+//  頁面切換邏輯
+// ════════════════════════════════════════
+function showPage(p) {
+  var isCards = (p === 'cards');
+  document.getElementById('qbModule').style.display  = isCards ? 'none' : 'block';
+  document.getElementById('cardModule').style.display = isCards ? 'block' : 'none';
+  document.querySelectorAll('.pagetab').forEach(function(t, i) {
+    t.classList.toggle('active', (i === 0) ? !isCards : isCards);
+  });
+  if (isCards && !ckInitDone) { ckInit(); ckInitDone = true; }
+}
+
+// ════════════════════════════════════════
+//  字卡資料
+// ════════════════════════════════════════
+var CARDS = [
+{id:"A-F01",sub:"土壤物理與沖蝕",mode:"formula",front:`USLE 完整公式`,back:`A = R × K × L × S × C × P
+A：年土壤流失量 (ton/ha/yr)
+R(Rm)：降雨沖蝕指數
+K(Km)：土壤可蝕性因子
+L：坡長因子 = (λ/22.13)^m
+S：坡度因子（見下卡）
+C：植生覆蓋因子（裸地=1.0）
+P：保育措施因子`,tags:["USLE","計算","高頻"]},
+{id:"A-F02",sub:"土壤物理與沖蝕",mode:"formula",front:`S 因子兩段公式`,back:`坡度 < 9%：S = 10.8 × sinβ + 0.03
+坡度 ≥ 9%：S = 16.8 × sinβ - 0.50
+⚠️ sinβ ≈ 坡度%/100
+⚠️ 9% 是分界點
+
+常用值：
+5%→0.57　8%→0.894　10%→1.18
+12%→1.516　15%→2.02　20%→2.86`,tags:["S因子","計算","高頻"]},
+{id:"A-F03",sub:"土壤物理與沖蝕",mode:"formula",front:`L 因子（坡長因子）`,back:`L = (λ/22.13)^m
+
+m 值：
+<1%坡度 → m=0.2
+1~3% → m=0.3
+3~5% → m=0.4
+≥5% → m=0.5
+
+複合坡面：用累積坡長計算LS，再取差值`,tags:["L因子","計算"]},
+{id:"A-F04",sub:"土壤物理與沖蝕",mode:"formula",front:`土壤三相換算（必背）`,back:`孔隙率  n = Vv/Vt = 1 - ρb/ρs
+空隙比  e = Vv/Vs
+n = e/(1+e)　　e = n/(1-n)
+飽和度  S = Vw/Vv
+體積含水量 θ = w × ρb/ρw
+
+計算鏈：n→e→ρb→θ→S`,tags:["三相","計算","高頻"]},
+{id:"A-F05",sub:"土壤物理與沖蝕",mode:"formula",front:`落水頭法 K 值`,back:`K = (a×L)/(A×t) × ln(h₁/h₂)
+a：細管截面積
+L：試樣長度
+A：試樣截面積
+t：試驗時間
+h₁、h₂：起始與結束水頭
+
+適用：低滲透性（K<10⁻³ cm/s）`,tags:["入滲","計算"]},
+{id:"A-F06",sub:"土壤物理與沖蝕",mode:"formula",front:`毛細上升高度`,back:`hc = 4T / (γw × d)
+T：表面張力（≈0.073 N/m）
+γw：水單位重（9810 N/m³）
+d：孔隙直徑
+
+典型hc：粗砂~3cm / 粉砂~1.5m / 黏土可達10m+`,tags:["毛細","公式"]},
+{id:"A-F07",sub:"土壤物理與沖蝕",mode:"formula",front:`SDR 泥砂傳遞比`,back:`SDR = 出口年輸砂量 / 年總侵蝕量
+
+年輸出量 = A(ton/ha) × 面積(ha) × SDR
+
+影響因素：
+面積越大→SDR越低
+地形連通性高→SDR越高
+典型值：0.1~0.5`,tags:["SDR","計算"]},
+{id:"A-C01",sub:"土壤物理與沖蝕",mode:"flash",front:`USLE 的四個主要限制？`,back:`① 僅適用面蝕（片蝕、細溝蝕），不適用溝蝕、崩塌、河岸侵蝕
+② 年平均值，無法模擬單場暴雨
+③ 估算坡面流失量，非出口輸出量（需乘SDR）
+④ 統計迴歸，不同地區需重新校正`,tags:["USLE","限制","高頻"]},
+{id:"A-C02",sub:"土壤物理與沖蝕",mode:"flash",front:`粉砂質土壤 K 值為何最高？`,back:`粉砂（0.002~0.05mm）兩頭不靠：
+✗ 無砂粒的重力優勢（粒徑不夠大）
+✗ 無黏粒的電化學凝聚力
+→ 最容易被雨滴打散、逕流剝離
+→ K 值最高
+
+記憶：粉砂是「最沒靠山」的粒徑`,tags:["K值","高頻"]},
+{id:"A-C03",sub:"土壤物理與沖蝕",mode:"flash",front:`FC、WP 的基質吸力數字？`,back:`FC：-33 kPa（pF ≈ 2.5）
+WP：-1500 kPa（pF ≈ 4.2）
+
+PAW（有效水分）= θ_FC - θ_WP
+壤土 PAW 最大（農業最適）`,tags:["FC","WP","數字","高頻"]},
+{id:"A-C04",sub:"土壤物理與沖蝕",mode:"flash",front:`片蝕→細溝蝕→溝蝕 的深度與可逆性`,back:`片蝕：<幾mm，可逆，靠植生防治，C值降低
+細溝蝕：<30cm，可逆（農機整平），靠等高耕作
+溝蝕：>30cm，不可逆，需工程治理
+
+防治手段升級：植生→農藝→工程`,tags:["侵蝕類型","高頻"]},
+{id:"A-C05",sub:"土壤物理與沖蝕",mode:"flash",front:`T 值的定義與台灣範圍`,back:`定義：維持長期生產力前提下允許的最大年侵蝕量
+台灣：5~12 ton/ha/yr
+
+決定因素：
+① 土層深度（最重要）
+② 土壤形成速率
+③ 土地利用目的`,tags:["T值","數字","高頻"]},
+{id:"A-C06",sub:"土壤物理與沖蝕",mode:"flash",front:`USLE / RUSLE / WEPP 最核心差異`,back:`USLE：經驗統計，年均，僅坡面尺度
+RUSLE：改良版，加季節性C因子、複合坡形LS
+WEPP：物理過程，可模擬單場事件、空間分布，但資料需求大
+
+工程設計→USLE/RUSLE；精確研究→WEPP`,tags:["模式比較","高頻"]},
+{id:"A-C07",sub:"土壤物理與沖蝕",mode:"flash",front:`Green-Ampt vs Horton 入滲模式本質差異`,back:`Green-Ampt：半物理，活塞式濕潤鋒面假設，參數有物理意義（Ks、ψ、Δθ），可推廣
+Horton：純經驗，f(t)=fc+(f0-fc)e^(-kt)，僅描述現象，需率定才能用
+
+兩者都無法描述非飽和帶的複雜流動`,tags:["入滲","模式比較"]},
+{id:"A-C08",sub:"土壤物理與沖蝕",mode:"flash",front:`表面結皮的雙重效應`,back:`加劇侵蝕（主要）：入滲率大降→逕流增加→片蝕加劇
+減少侵蝕（次要）：硬殼保護下方軟土，略減雨濺蝕
+
+淨效果：通常加劇侵蝕
+防止方法：地表覆蓋（截雨滴動能）/ 增加有機質 / 施PAM`,tags:["結皮","雙重效應"]},
+{id:"A-C09",sub:"土壤物理與沖蝕",mode:"flash",front:`¹³⁷Cs 同位素法的原理與時間尺度`,back:`來源：1954~1963核試爆落塵均勻沉降地表
+原理：待測點<基準點→侵蝕；待測點>基準點→堆積
+
+適用時間尺度：1954年後至今（50~70年累積侵蝕）
+精度：±15~30%`,tags:["同位素","量測"]},
+{id:"A-C10",sub:"土壤物理與沖蝕",mode:"flash",front:`影響入滲率的四大因子`,back:`① 土壤質地：砂>壤>黏（孔徑大小）
+② 土壤結構：團粒佳→大孔隙→入滲快
+③ 前期含水量：越濕→越慢
+④ 地表覆蓋：植生防結皮→維持孔隙
+
+壓實（容積密度↑）→入滲急劇降低`,tags:["入滲","高頻"]},
+{id:"A-M01",sub:"土壤物理與沖蝕",mode:"map",front:`土壤侵蝕核心概念地圖`,back:`【侵蝕類型】片蝕→細溝→溝蝕→崩塌／風蝕
+【動力機制】雨滴動能（剝離）+ 逕流（搬運）
+【USLE因子】R×K×LS×C×P
+【坡面→出口】年侵蝕量 × SDR = 年輸出量
+【防治層次】農藝（C,P）→機械改造（L,S）→工程（溝蝕以上）`,tags:["地圖"]},
+{id:"A-M02",sub:"土壤物理與沖蝕",mode:"map",front:`土壤水分核心概念地圖`,back:`【水分狀態序列】飽和→FC(-33kPa)→WP(-1500kPa)→風乾
+【有效水分】PAW=FC-WP（壤土最大）
+【入滲模式】Green-Ampt（物理）/ Horton（經驗）
+【毛細現象】hc=4T/γwd → 黏土>粉砂>砂土
+【SWCC遲滯】脫水≠吸水曲線（影響邊坡穩定）`,tags:["地圖"]},
+{id:"B-F01",sub:"水土保持工程",mode:"formula",front:`Manning 公式`,back:`Q = (1/n) × A × R^(2/3) × S^(1/2)
+R = A/P（水力半徑）
+
+矩形：A=by，P=b+2y
+梯形（邊坡z）：A=(b+zy)y，P=b+2y√(1+z²)
+
+複合粗糙係數（Horton法）：
+nc = [Σ(nᵢ^1.5×Pᵢ)/P]^(2/3)`,tags:["Manning","計算","高頻"]},
+{id:"B-F02",sub:"水土保持工程",mode:"formula",front:`福祿數（流態判別）`,back:`Fr = v / √(g×y)
+
+Fr < 1：亞臨界流（緩流）— 下游控制上游
+Fr = 1：臨界流
+Fr > 1：超臨界流（急流）— 上游控制下游
+
+⚠️ 超臨界流出口需設消能設施`,tags:["福祿數","計算","高頻"]},
+{id:"B-F03",sub:"水土保持工程",mode:"formula",front:`Rankine 主動/被動土壓力係數`,back:`Ka = tan²(45° - φ/2)  →  主動
+Kp = tan²(45° + φ/2)  →  被動
+
+必背數字：
+φ=30° → Ka = 1/3 ≈ 0.333
+φ=25° → Ka ≈ 0.406
+φ=35° → Ka ≈ 0.271
+
+φ越大 → Ka越小`,tags:["土壓力","計算","高頻"]},
+{id:"B-F04",sub:"水土保持工程",mode:"formula",front:`矩形堰流量公式`,back:`Q = (2/3) × Cd × √(2g) × L × H^(3/2)
+Cd=0.6時：Q = 1.772 × L × H^(3/2)
+
+反推水頭：H = (Q/1.772L)^(2/3)
+
+⚠️ 1.772 是固定常數（Cd=0.6時），背起來省時間`,tags:["矩形堰","計算","高頻"]},
+{id:"B-F05",sub:"水土保持工程",mode:"formula",front:`土石流設計流量`,back:`Qd = Qw / (1 - Cd)
+Qw：清水逕流設計流量
+Cd：土砂體積濃度（通常0.4~0.6）
+
+典型：Cd=0.5 → Qd = 2×Qw`,tags:["土石流","計算","高頻"]},
+{id:"B-F06",sub:"水土保持工程",mode:"formula",front:`農路縱坡長度限制`,back:`L ≤ 40 / (G - 3.3)^4
+G：縱坡度(%)，G>3.3%時適用
+
+直覺感受：
+G=6% → L≤0.75m（幾乎任何長度都超限）
+G=8% → L≤0.082m
+→ 超過3.3%坡度就需頻繁設置休止段`,tags:["農路","計算","高頻"]},
+{id:"B-C01",sub:"水土保持工程",mode:"flash",front:`擋土牆三大安全係數（靜態/地震）`,back:`抗滑動：靜態 ≥ 1.5 ／ 地震 ≥ 1.1
+抗傾倒：靜態 ≥ 2.0 ／ 地震 ≥ 1.5
+基礎承載：靜態 ≥ 3.0 ／ 地震 ≥ 2.25
+
+記憶：1.5→2.0→3.0（遞增）
+地震版 = 靜態×0.75
+承載最嚴格（破壞後最難修復）`,tags:["擋土牆","FS","高頻"]},
+{id:"B-C02",sub:"水土保持工程",mode:"flash",front:`永久 vs 臨時邊坡 FS 要求`,back:`永久邊坡（>2年）：靜態 ≥ 1.5 ／ 地震 ≥ 1.1
+臨時邊坡（≤2年）：靜態 ≥ 1.3 ／ 地震 ≥ 1.0
+
+臨時可較低原因：
+使用期短、現場可監測應變、成本效益考量`,tags:["邊坡","FS","高頻"]},
+{id:"B-C03",sub:"水土保持工程",mode:"flash",front:`攔砂壩：不透過型 vs 透過型`,back:`不透過型（實壩）：完全攔截，緊急治理立竿見影
+缺點：斷輸砂連續性，下游飢餓效應
+
+透過型（格柵壩）：平時輸砂通過，土石流時攔截大顆粒
+優點：維持生態廊道，現代趨勢主流
+
+選用：優先透過型，緊急才用不透過型`,tags:["攔砂壩","高頻"]},
+{id:"B-C04",sub:"水土保持工程",mode:"flash",front:`截水溝 vs 排水溝`,back:`截水溝：設坡頂上坡側，攔截「外來」清水（防外水入侵）
+排水溝：設施工區內，排除「區內」逕流（導向沉砂池）
+
+配置鏈：截水溝 → 排水溝 → 沉砂池 → 出口
+截水溝在最上游、最外側，是第一道防線`,tags:["截排水","高頻"]},
+{id:"B-C05",sub:"水土保持工程",mode:"flash",front:`水平排水孔設計規定`,back:`孔徑：75~150mm
+傾斜：微向下1~5°（重力自排，免動力）
+深度：穿越滑動面，深入穩定地層≥3~5m
+間距：3~6m
+
+VS 垂直集水井：免動力、成本低、可密集設置
+→ 是最常用地下排水手段`,tags:["排水孔","高頻"]},
+{id:"B-C06",sub:"水土保持工程",mode:"flash",front:`護岸材料容許流速（由低到高）`,back:`乾砌石：1.5~2.5 m/s（生態⭐⭐⭐⭐）
+石籠：3~5 m/s（生態⭐⭐⭐）
+漿砌石：3~5 m/s（生態⭐⭐）
+混凝土：8~10 m/s（生態⭐）
+
+選用邏輯：流速未超過就優先選生態性高的`,tags:["護岸","容許流速"]},
+{id:"B-C07",sub:"水土保持工程",mode:"flash",front:`土石流 vs 一般洪水 核心差異`,back:`土石流：水+土砂（固體20~60%），密度1.5~2.2t/m³，破壞力遠大
+一般洪水：清水，密度1.0，以水力沖刷為主
+
+設計差異：
+土石流用 Qd=Qw/(1-Cd) 放大設計流量
+設施需承受大衝擊力`,tags:["土石流","高頻"]},
+{id:"B-C08",sub:"水土保持工程",mode:"flash",front:`固床工連續多級的優點`,back:`VS 單一高落差固床工：
+✓ 消能分散，各級沖刷較淺
+✓ 單級落差小（<0.5m），魚類可逐級跨越
+✓ 形成深潭-淺瀨交替，棲地多樣性高
+✓ 視覺衝擊小、生態廊道維持`,tags:["固床工","高頻"]},
+{id:"B-C09",sub:"水土保持工程",mode:"flash",front:`農路三大設計規定數字`,back:`縱坡度：一般≤12%，最大≤18%
+路面寬：一級≥4.5m／二級≥3.5m／三級≥3.0m
+避車道：寬2.5m×長20m
+  一級（30km/h）：≤400m
+  二級（20km/h）：≤300m
+  三級（10km/h）：≤150m`,tags:["農路","法規","高頻"]},
+{id:"B-C10",sub:"水土保持工程",mode:"flash",front:`水躍（Hydraulic Jump）消能機制`,back:`超臨界流Fr>1進入消力池
+→ 流深急增、流速急降
+→ 動能轉為強烈紊流渦動
+→ 最終消散為熱能
+消能效率：60~70%
+
+⚠️ 確保水躍在池內發生，不能跑到池外軟質河床`,tags:["水躍","消能"]},
+{id:"B-M01",sub:"水土保持工程",mode:"map",front:`擋土設施核心概念地圖`,back:`【類型選用】重力式(<5m)→懸臂式(3~8m)→錨定式(>5m或空間受限)
+【三大破壞】滑動(FS≥1.5)／傾倒(FS≥2.0)／承載(FS≥3.0)
+【土壓力】Ka=tan²(45-φ/2)
+φ=30°→Ka=0.333（最常考）
+【施工配套】先設臨時截排水→開挖→植生`,tags:["地圖"]},
+{id:"B-M02",sub:"水土保持工程",mode:"map",front:`野溪整治核心概念地圖`,back:`【設施系列】攔砂壩→固床工→護岸→跌水工
+【流態判別】Fr<1緩流／Fr>1急流（需消能）
+【土石流】Qd=Qw/(1-Cd)，雙重設計考量
+【生態三要素】縱向連通+底質多樣+濱溪植生
+【護岸選材】依設計流速由低到高：乾砌石→石籠→混凝土`,tags:["地圖"]},
+{id:"C-F01",sub:"水土保持規劃設計",mode:"formula",front:`永久滯洪量計算（三角形法）`,back:`Q = C×i×A/360（A以ha計）
+ΔQ = Q後 - Q前
+Vs = ΔQ × tp / 2　（tp = tc = 集流時間）
+
+設計重現期：臨時設施10年／永久設施25年
+矩形堰：Q = 1.772 × L × H^(3/2)`,tags:["滯洪","計算","高頻"]},
+{id:"C-F02",sub:"水土保持規劃設計",mode:"formula",front:`SPT / RQD 定義數字`,back:`SPT（N值）：63.5kg錘落高76cm，打入30cm的錘擊數
+N<10 鬆軟／N=10~30 中密／N>50 密實
+
+RQD = Σ(岩心≥10cm各段)/鑽進長度×100%
+>90%優良／75~90%良好／50~75%中等／<50%差`,tags:["SPT","RQD","數字"]},
+{id:"C-F03",sub:"水土保持規劃設計",mode:"formula",front:`山坡地定義（水保法§3）`,back:`標高 ≥ 100 公尺，或
+標高 < 100 公尺但坡度 > 5%
+的公私有土地
+
+⚠️ 都市計畫範圍內的山坡地仍適用水保法
+⚠️ 滿足任一條件即屬山坡地`,tags:["山坡地","法規","高頻"]},
+{id:"C-F04",sub:"水土保持規劃設計",mode:"formula",front:`水保計畫核心期限（必背）`,back:`審核期限：受理完整計畫起 60 日
+補正期間：不計入60日（暫停計時）
+申報開工：核定後 1 年
+展期：最多再延 1 年
+逾期未開工：計畫核定失效
+
+口訣：完整60天→補正暫停→1年開工→逾期重來`,tags:["審核期限","法規","高頻"]},
+{id:"C-F05",sub:"水土保持規劃設計",mode:"formula",front:`沉砂設施三個核心數字`,back:`設置門檻：開發面積 ≥ 1 公頃必設
+清淤門檻：淤積達有效容量 1/2 時清除
+目標去除粒徑：≥ 0.02 mm（細砂/粉砂）
+
+簡化容量：≥ 裸露面積(ha) × 100 m³/ha`,tags:["沉砂池","法規","高頻"]},
+{id:"C-F06",sub:"水土保持規劃設計",mode:"formula",front:`植生工程驗收標準（§61）`,back:`草本植生：竣工後 6 個月 → 覆蓋率 ≥ 70%
+木本（苗木）：種植後 1 年 → 活存率 ≥ 70%
+
+未達標：6 個月內補植後複驗
+申報→30日內查驗
+
+口訣：草6個月70覆蓋，木1年70活存`,tags:["植生驗收","法規","高頻"]},
+{id:"C-C01",sub:"水土保持規劃設計",mode:"flash",front:`水保法§12 五類應擬具水保計畫的行為`,back:`① 農林漁牧地開發利用
+② 探礦採礦採取土石
+③ 修建鐵路、公路、其他道路
+④ 開發建築用地
+⑤ 其他開挖整地、設置公私基礎設施
+
+記憶：農林探路建，其他也算`,tags:["水保法12條","高頻"]},
+{id:"C-C02",sub:"水土保持規劃設計",mode:"flash",front:`簡易申報書 vs 一般水保計畫 核心差異`,back:`簡易申報書：小規模，免技師簽證，採備查制，較簡化
+一般水保計畫：需技師簽證，需主管機關核定，完整設計
+
+關鍵差異：「備查」vs「核定」
+備查→存檔；核定→有審查`,tags:["簡易申報","高頻"]},
+{id:"C-C03",sub:"水土保持規劃設計",mode:"flash",front:`危險順向坡的三個判定條件`,back:`① 地層傾向與坡面方向大致一致（同向）
+② 地層傾角：10°~70°（太平/太陡風險反而低）
+③ 有弱面（黏土夾層、頁理）可作為潛在滑動面
+
+因應：禁止開挖坡腳（最重要）
+→ 地錨、水平排水孔、長期監測`,tags:["順向坡","高頻"]},
+{id:"C-C04",sub:"水土保持規劃設計",mode:"flash",front:`技師簽證三種類型及時機`,back:`① 規劃設計簽證：送審前
+② 施工監造簽證：施工期間（定期赴工地）
+③ 竣工查驗簽證：完工後申報
+
+技師對簽證內容負民事與刑事連帶責任`,tags:["技師簽證","法規","高頻"]},
+{id:"C-C05",sub:"水土保持規劃設計",mode:"flash",front:`農塘有效容量 vs 總容量`,back:`有效容量：正常蓄水位至最低運用水位（可實際利用的水量）
+總容量：有效容量 + 淤積預留容量 + 死容量
+
+淤積預留 = 設計年限 × 年均淤積速率
+設計年限越長→需預留更多淤積空間`,tags:["農塘","高頻"]},
+{id:"C-C06",sub:"水土保持規劃設計",mode:"flash",front:`超限利用的定義與法律後果`,back:`定義：在土地可利用限度規定的限制等級（如5類宜林地）上，從事超過容許範圍的開發
+
+法律後果：
+限期改善→逾期按次連續裁罰（6~30萬/次）
+必要時代為執行，費用向義務人追償`,tags:["超限利用","法規","高頻"]},
+{id:"C-C07",sub:"水土保持規劃設計",mode:"flash",front:`特定水土保持區 4 種類型`,back:`① 水庫集水區保護帶
+② 現有崩塌地及周邊一定範圍
+③ 地震斷層或地質敏感區
+④ 其他須加強保育地區
+
+管制效果：禁採礦伐木、限制開發、更嚴格水保標準`,tags:["特定水保區"]},
+{id:"C-C08",sub:"水土保持規劃設計",mode:"flash",front:`應辦理變更設計 vs 免辦理但技師認定`,back:`應辦理：開發規模擴大、性質改變、主要設施重大變更、地質條件差異過大、刪除保育設施
+
+免辦理但需技師確認安全：
+工程量±10%以內、因地制宜小幅調整、材料小幅調整功能不變`,tags:["變更設計","法規"]},
+{id:"C-M01",sub:"水土保持規劃設計",mode:"map",front:`水保計畫申請流程地圖`,back:`技師規劃→擬具計畫書（技師簽證）
+→送件主管機關→受理（資料完整）
+→60日審核（補正期暫停計時）
+→核定→1年內申報開工
+→施工（監造簽證）
+→竣工→30日查驗
+→合格→解除列管`,tags:["地圖","流程","高頻"]},
+{id:"C-M02",sub:"水土保持規劃設計",mode:"map",front:`土地分類（6類）地圖`,back:`1~4類（宜農牧地）：坡度漸陡，可農業利用
+5類（宜林地）：僅造林，不宜農耕
+6類（加強保育地）：地形不穩，嚴格保育禁止開發
+
+超限利用：用途超出該分類容許範圍
+查報→限期改善→連續裁罰`,tags:["地圖","土地分類"]},
+{id:"D-F01",sub:"坡地水文學",mode:"formula",front:`合理化公式（完整版）`,back:`Q = C × i × A / 360（A以ha計）
+Q = C × i × A / 3.6（A以km²計）
+
+設計延時選 tc（此時洪峰最大）
+設計重現期：臨時10年／永久25年
+
+推導：Q(m³/s)=C×i(mm/hr)/1000×A(ha)×10000/3600=CiA/360`,tags:["合理化公式","計算","高頻"]},
+{id:"D-F02",sub:"坡地水文學",mode:"formula",front:`Log-Pearson III 頻率分析`,back:`log QT = μ + KT × σ
+μ：logQ均值；σ：標準差
+KT：依（重現期T，偏態係數Cs）查表
+
+年超越機率 p = 1/T
+n年內至少一次：P = 1-(1-p)^n
+（例：T=10yr，20年內P=1-0.9^20=87.8%）`,tags:["頻率分析","計算","高頻"]},
+{id:"D-F03",sub:"坡地水文學",mode:"formula",front:`Thiem公式（穩態抽水試驗）`,back:`T = Q×ln(r₂/r₁) / [2π×(s₁-s₂)]
+T：流通係數
+Q：抽水量
+r₁,r₂：兩觀測井距離
+s₁,s₂：對應降深
+
+適用：穩定狀態＋兩個觀測井`,tags:["地下水","計算","高頻"]},
+{id:"D-F04",sub:"坡地水文學",mode:"formula",front:`Jacob直線法（暫態抽水試驗）`,back:`T = 2.303×Q / (4π×Δs)
+S = 2.25×T×t₀ / r²
+
+Δs：半對數圖一個循環的降深差
+t₀：直線外插至s=0的時刻
+
+適用：暫態（未達穩定）＋單一觀測井`,tags:["地下水","計算","高頻"]},
+{id:"D-F05",sub:"坡地水文學",mode:"formula",front:`SCS-CN 法`,back:`Q = (P-Ia)² / (P-Ia+S)
+S = 25400/CN - 254（mm）
+Ia = 0.2×S（初期損失）
+
+CN高（100）→幾乎全逕流（不透水面）
+CN低→高入滲（森林）
+台灣水保計畫多用φ指數法，CN法為美國主流`,tags:["SCS-CN","計算"]},
+{id:"D-F06",sub:"坡地水文學",mode:"formula",front:`Thiessen 面平均雨量`,back:`P̄ = Σ(Pᵢ×Aᵢ) / A_total
+
+步驟：各站連線→垂直平分線→量測多邊形面積→加權平均
+
+缺資料補遺（差異>10%用正常雨量比法）：
+Px = (Nx/n) × Σ(Pᵢ/Nᵢ)`,tags:["Thiessen","計算","高頻"]},
+{id:"D-F07",sub:"坡地水文學",mode:"formula",front:`水庫囚砂效率`,back:`Et = 1 - 1/(1+65×(C/I)²)
+C/I：水庫容量/年入流量
+
+年淨淤積量 = 年入砂量 × Et × (1-排砂比例)
+
+C/I越大→Et越高→淤積越快
+排砂→降低淨淤積量→延長水庫壽命`,tags:["水庫淤積","計算","高頻"]},
+{id:"D-C01",sub:"坡地水文學",mode:"flash",front:`單位歷線的兩個基本假設`,back:`① 時間不變性：相同延時單位降雨，任何時候的UH形狀相同
+② 線性疊加性：降雨量加倍→逕流加倍；多場降雨可依時序疊加
+
+疊加步驟：
+拆解→各段×比例→依時序疊加→加基流`,tags:["UH","高頻"]},
+{id:"D-C02",sub:"坡地水文學",mode:"flash",front:`設計延時為何選 tc？`,back:`延時=tc時：集水區全部面積同時貢獻逕流（最遠端剛好到達出口）→洪峰最大
+
+延時<tc：部分面積未貢獻，洪峰小
+延時>tc：全面貢獻但IDF雨強更低，洪峰反而小
+
+→ tc是設計最不利延時`,tags:["tc","高頻"]},
+{id:"D-C03",sub:"坡地水文學",mode:"flash",front:`AMS vs AES 的適用重現期`,back:`AMS（年最大值法）：每年取1個最大值，國際通用；適合T>10年
+AES（年超越值法）：取超過門檻的所有事件；對T<10年更準確
+
+T>10年時兩者結果趨近`,tags:["頻率分析"]},
+{id:"D-C04",sub:"坡地水文學",mode:"flash",front:`台灣三種主要降雨類型特性`,back:`梅雨（5~6月）：持續數天，累積200~400mm，強度中等（20~40mm/hr）
+颱風（7~10月）：持續2~4天，累積可達1000mm+，最危險（>100mm/hr）
+對流雨（5~9月午後）：持續30~90min，強度極高（80~150mm/hr），空間侷限`,tags:["降雨類型","高頻"]},
+{id:"D-C05",sub:"坡地水文學",mode:"flash",front:`達西定律四個失效情境`,back:`① 高流速紊流（Re>1~10）：石灰岩地下河、大孔隙礫石層
+② 非飽和流：需改用Richards方程式
+③ 極低透水黏土：存在門檻水力梯度
+④ 高度不均質/異向性
+
+多數土壤孔隙流動符合達西定律`,tags:["達西定律"]},
+{id:"D-C06",sub:"坡地水文學",mode:"flash",front:`都市化對水文的五個改變`,back:`① 逕流係數C↑（不透水面積增加）
+② 集流時間tc縮短（鋪面+管網）
+③ 洪峰流量↑↑（C增+tc縮雙重效應）
+④ 枯水基流↓（地下水補注減少）
+⑤ 年ET↓（植被減少，截留蒸散降低）
+
+LID目標：讓都市化後盡量接近開發前狀態`,tags:["都市化","高頻"]},
+{id:"D-C07",sub:"坡地水文學",mode:"flash",front:`Horton超滲逕流 vs Dunne飽和逕流`,back:`Horton（超滲）：降雨強度>入滲率→地表逕流；乾旱地區、裸露地常見
+Dunne（飽和）：土壤達飽和→額外降雨無論強度多低都變成逕流；濕潤地區、長延時降雨後期
+
+台灣颱風期：兩種機制常同時作用`,tags:["逕流機制"]},
+{id:"D-M01",sub:"坡地水文學",mode:"map",front:`洪水頻率分析概念地圖`,back:`【資料】AMS（每年一值）/ AES（超門檻值）
+【方法】Log-Pearson III（台灣主流）
+【計算】log QT = μ + KT×σ
+【風險】p=1/T；n年超越P=1-(1-p)^n
+【台灣特性】右偏（Cs>0），颱風極端洪水頻繁`,tags:["地圖"]},
+{id:"D-M02",sub:"坡地水文學",mode:"map",front:`地下水概念地圖`,back:`【達西定律】q=-K×dh/dl（層流適用）
+【含水層】承壓（有限壓頭）/ 非承壓（潛水）
+【穩態分析】Thiem（兩觀測井）
+【暫態分析】Jacob直線法（單井不同時間）
+【失效條件】高流速紊流/非飽和/極低透水/異向性`,tags:["地圖"]},
+{id:"E-F01",sub:"植生工程",mode:"formula",front:`IVI 重要值指數公式`,back:`IVI = 相對密度(%) + 相對頻度(%) + 相對優勢度(%)
+範圍：0~300
+
+相對密度 = 物種株數/總株數×100%
+相對頻度 = 物種頻度/頻度總和×100%
+相對優勢度 = 物種基底面積/總基底面積×100%
+
+驗算：所有物種IVI加總=300`,tags:["IVI","計算","高頻"]},
+{id:"E-F02",sub:"植生工程",mode:"formula",front:`客土噴植五大成分`,back:`① 有機客土（腐植土）：植生基盤，60~70%體積
+② 草木種子：植生來源
+③ 緩效複合肥料（N:P:K）：初期養分
+④ 木纖維或稻草碎：保濕+物理固定（骨架作用）
+⑤ 黏著劑（PAM或乳膠）：增加附著防流失`,tags:["客土噴植","高頻"]},
+{id:"E-F03",sub:"植生工程",mode:"formula",front:`防風林保護距離`,back:`有效保護距離 = 15~20 × H（樹高）
+最佳密度 = 60~80%（疏透型）
+
+過密（>80%）→ 背風側渦流，局部風蝕加劇
+過疏（<40%）→ 降風速效果不足
+
+記憶：密度60~80是甜蜜點`,tags:["防風林","高頻"]},
+{id:"E-F04",sub:"植生工程",mode:"formula",front:`植生工程驗收標準`,back:`草本覆蓋率：竣工後 6 個月 ≥ 70%
+苗木活存率：種植後 1 年 ≥ 70%
+
+未達標→6個月內補植後複驗
+申報→主管機關30日內查驗
+
+口訣：草6個月70覆蓋，木1年70活存，未達6個月補植`,tags:["驗收","法規","高頻"]},
+{id:"E-C01",sub:"植生工程",mode:"flash",front:`崩塌地五類立地與對應工法`,back:`土壤型：直接噴植
+岩石裸露：格框+客土噴植
+陡峭(>45°)：高強度金屬網+長錨釘噴植
+溪岸：護岸+扦插（水柳）+噴植
+高海拔：格框+高山適生種（玉山箭竹、高羊茅）
+
+邏輯：先解決基盤問題→再解決環境逆境`,tags:["崩塌地","工法","高頻"]},
+{id:"E-C02",sub:"植生工程",mode:"flash",front:`植生防災綠帶五種分類`,back:`① 防風：降風速（木麻黃/黃槿）
+② 固坡：根系固土（百喜草+台灣相思）
+③ 護岸：固河岸（水柳/楓楊）
+④ 防火：阻隔火勢（高含水量植物）
+⑤ 生態廊道：連結棲地（鄉土多層次植栽）`,tags:["防災綠帶","高頻"]},
+{id:"E-C03",sub:"植生工程",mode:"flash",front:`木纖維 vs 稻草纖維 三大差異`,back:`保水性：木纖維>稻草（吸水達自重10~15倍）
+分解速度：稻草快（3~6個月）/ 木纖維慢（6~18個月）
+抗雨滴衝擊：木纖維優（細絲緻密均勻）/ 稻草較差（莖粗有空隙）
+
+陡坡或強降雨→優先選木纖維`,tags:["客土噴植","材料"]},
+{id:"E-C04",sub:"植生工程",mode:"flash",front:`走莖型 vs 叢生型草本護坡差異`,back:`走莖型（百喜草）：快速擴展、自我修復強、耐踐踏、根系較淺
+叢生型（甜根子草）：擴展慢、根系較深、深層固土效果佳
+
+實務：常混播
+走莖型→快速防蝕（短期）
+叢生型→長期固土`,tags:["草種","護坡"]},
+{id:"E-C05",sub:"植生工程",mode:"flash",front:`海岸植生演替序列`,back:`第一線：馬鞍藤（匍匐，耐鹽耐沙埋，最先鋒）
+第二線：濱刺草、海桐（初步固砂）
+灌木帶：林投（刺葉防啃食）
+喬木帶：木麻黃、黃槿（防風林主體）
+
+邏輯：越靠海耐逆境越強；越向陸需要結構強度越大`,tags:["海岸演替","高頻"]},
+{id:"E-C06",sub:"植生工程",mode:"flash",front:`噴植驗收的三大爭議`,back:`① 外來先鋒種快速達標，目的種尚未建立
+② 目視估算覆蓋率主觀，容易爭議
+③ 6個月對木本植物太短
+
+改善建議：
+分階段驗收（初驗看防蝕覆蓋率，末驗看目的種組成）`,tags:["驗收爭議","高頻"]},
+{id:"E-C07",sub:"植生工程",mode:"flash",front:`目的種選用的三個面向標準`,back:`生態面：鄉土種、符合當地氣候海拔、代表當地潛在植被
+工程面：根系符合護坡需求、耐逆境、市場有足夠種源
+驗收面：草本發芽率≥80%（CNS）/ 苗木活存率≥70%（§61）
+
+三個面向缺一不可`,tags:["目的種"]},
+{id:"E-C08",sub:"植生工程",mode:"flash",front:`初生 vs 次生演替 判斷依據`,back:`初生：完全無土壤基盤（裸岩、深挖見岩盤）
+→ 無種子庫、無微生物相
+→ 需從零建立（客土+菌根菌），養護期長
+
+次生：保有部分原有土壤（崩塌地堆積區、棄耕地）
+→ 可利用種子庫，快速恢復`,tags:["演替"]},
+{id:"E-C09",sub:"植生工程",mode:"flash",front:`10種水保常用植物速查`,back:`坡面：百喜草（走莖先鋒）/ 百慕達草（耐踐踏）
+溪岸：甜根子草（深根）/ 水柳（護岸）/ 楓楊（大喬木）
+困難地：香茅草（礦區，耐重金屬）
+喬木：台灣相思（固氮）/ 山黃麻（快速生長）
+海岸：馬鞍藤（先鋒）/ 木麻黃（防風林）`,tags:["植物名錄","高頻"]},
+{id:"E-C10",sub:"植生工程",mode:"flash",front:`濱溪緩衝帶三層次設計`,back:`第一層（0~5m）：草本挺水植物（蘆葦、香蒲）→固岸、魚類棲地
+第二層（5~15m）：灌木（水社柳）→固坡、小型動物棲地
+第三層（15m以上）：鄉土喬木（水柳、楓楊）→遮蔭、廊道連通
+
+台灣建議寬度：都市≥10m / 農業區≥30m / 敏感生態≥50m`,tags:["濱溪緩衝帶","高頻"]},
+{id:"E-M01",sub:"植生工程",mode:"map",front:`植生復育演替序列地圖`,back:`裸地→草本先鋒期（0~2年，噴植快速覆蓋）
+→灌木期（2~5年，補植鄉土灌木）
+→先鋒喬木期（5~15年，移除外來種，引入目的種）
+→次生森林（15~30年，最小干預）
+→穩定森林（30年+，不干預）
+
+越後期工程投入越少，讓自然演替接手`,tags:["地圖","演替"]},
+{id:"E-M02",sub:"植生工程",mode:"map",front:`IVI完整計算流程地圖`,back:`調查樣區→記錄各物種株數、出現樣區數、基底面積
+
+↓
+相對密度 = 物種株數/總株數×100%
+相對頻度 = 物種頻度/頻度總和×100%
+相對優勢度 = 物種基底面積/總基底面積×100%
+
+↓
+IVI = 三者相加（三物種加總應=300）
+→ IVI最高=優勢種`,tags:["地圖","IVI"]},
+{id:"A-F08",sub:"土壤物理與沖蝕",mode:"formula",front:`USDA 土壤質地三角圖粒徑範圍`,back:`砂粒（Sand）：2.0 ~ 0.05 mm
+粉砂（Silt）：0.05 ~ 0.002 mm
+黏粒（Clay）：< 0.002 mm
+
+三組分加總 = 100%
+在三角圖上的交點即質地類別（12種）
+
+可蝕性排序：粉砂壤土 > 壤土 > 砂土 > 黏土`,tags:["質地","粒徑","計算"]},
+{id:"A-F09",sub:"土壤物理與沖蝕",mode:"formula",front:`USLE C 值典型數值範圍`,back:`裸地（剛整地）：C = 1.0
+稀疏草地（覆蓋率<20%）：C ≈ 0.4~0.7
+中度草地（覆蓋率50%）：C ≈ 0.1~0.2
+密植牧草地：C ≈ 0.01~0.05
+密植造林地（落葉層完整）：C ≈ 0.001~0.01
+
+⚠️ C 值跨越 3 個數量級，是六因子中人為可控幅度最大的`,tags:["C值","USLE","高頻"]},
+{id:"A-F10",sub:"土壤物理與沖蝕",mode:"formula",front:`USLE P 值對應農藝措施`,back:`無保育措施：P = 1.0
+等高耕作（坡度<8%）：P ≈ 0.5
+等高耕作（坡度8~12%）：P ≈ 0.6
+梯田（完善排水）：P ≈ 0.1~0.15
+等高帶狀耕作：P ≈ 0.25~0.40
+
+P 值越小 = 保育效果越好
+梯田效果最顯著（P最低）`,tags:["P值","USLE","農藝措施"]},
+{id:"A-C11",sub:"土壤物理與沖蝕",mode:"flash",front:`容積密度 ρb 的意義與影響`,back:`定義：ρb = 乾土質量 / 土壤總體積（含孔隙）
+
+典型值：
+鬆散農地：1.1~1.3 g/cm³
+自然林地：1.0~1.4 g/cm³
+壓實土壤：1.5~1.8 g/cm³
+
+影響：
+ρb↑（壓實）→ 孔隙率↓ → 入滲率急降（可降至原來1/10）
+施工機具壓實是最常見的地表水文改變原因`,tags:["容積密度","壓實","觀念"]},
+{id:"A-C12",sub:"土壤物理與沖蝕",mode:"flash",front:`Horton 入滲公式三個參數的意義`,back:`f(t) = fc + (f₀ - fc) × e^(-kt)
+
+f₀：初始入滲率（降雨剛開始，孔隙最多水分最少）
+fc：最終穩定入滲率（土壤飽和後的定值，≈飽和水力傳導度Ks）
+k：衰減常數（越大→入滲率下降越快）
+
+應用：f(t)>降雨強度→無地表逕流；f(t)<降雨強度→超滲逕流開始`,tags:["Horton","入滲","觀念"]},
+{id:"A-C13",sub:"土壤物理與沖蝕",mode:"flash",front:`SWCC（土壤水分特徵曲線）的遲滯現象`,back:`同一吸力下，脫水路徑（排水中）含水量 > 吸水路徑（濕潤中）
+→ 兩條曲線不重合 = 遲滯（Hysteresis）
+
+三個原因：
+① 瓶頸孔隙效應（孔喉比孔隙小）
+② 前進vs後退接觸角不同
+③ 封閉氣泡效應（吸水時空氣被包住）
+
+邊坡穩定意義：降雨入滲（吸水）與退水（脫水）路徑不同 → 相同水頭條件下孔隙水壓不同 → 單一曲線分析可能低估崩塌風險`,tags:["SWCC","遲滯","邊坡穩定"]},
+{id:"A-C14",sub:"土壤物理與沖蝕",mode:"flash",front:`風蝕 vs 水蝕 的發生條件判斷`,back:`風蝕主導情境：
+• 乾旱/半乾旱地區（降雨<500mm/yr）
+• 植生覆蓋率<15%（地表裸露）
+• 地形開闊無遮蔽
+• 台灣：西部沿海沙地、特殊裸露地
+
+水蝕主導情境：
+• 濕潤地區（台灣為主）
+• 降雨動能大（颱風梅雨）
+• 坡度+裸地組合
+
+台灣因：植生覆蓋率高→風蝕被抑制；颱風超高雨強→水蝕是主角`,tags:["風蝕","水蝕","台灣","觀念"]},
+{id:"A-C15",sub:"土壤物理與沖蝕",mode:"flash",front:`有機質對 K 值（可蝕性）的影響`,back:`有機質含量↑ → K值↓（不易蝕）
+原因：
+① 有機質促進團粒結構形成（腐植質+黏粒鍵結）
+② 穩定的有機-礦物複合體抵抗雨滴打擊不易崩散
+③ 增加大孔隙 → 入滲率↑ → 地表逕流↓
+
+量化影響：有機質每增加1% → K值降低約0.003~0.005
+（Wischmeier nomograph中有機質是四個輸入參數之一）`,tags:["K值","有機質","觀念"]},
+{id:"A-C16",sub:"土壤物理與沖蝕",mode:"flash",front:`薄層流（Sheet flow）→集中流轉換機制`,back:`坡面逕流沿坡長累積：
+薄層流（Sheet flow）→ 細溝流（Rill flow）→ 集中逕流（Concentrated flow）
+
+轉換觸發因子：
+• 流量累積超過臨界量
+• 局部微地形（凹陷）引導集中
+• 流速超過起動流速，土壤顆粒開始移動
+
+臨界坡長 = 從薄層流轉為細溝蝕的最短坡長（依坡度、K值而異）
+→ 縮短有效坡長（梯田）的本質就是防止此轉換`,tags:["逕流","臨界坡長","觀念","高頻"]},
+{id:"A-M03",sub:"土壤物理與沖蝕",mode:"map",front:`USLE 六因子快速記憶地圖`,back:`【外力驅動】R（降雨沖蝕指數）→ 颱風梅雨使台灣Rm極高
+【土壤抗力】K（可蝕性）→ 粉砂壤土最高；有機質↑K↓
+【地形放大】L（坡長）=(λ/22.13)^m；S（坡度）9%為分界
+【人為可控-植生】C → 裸地1.0；密林0.001
+【人為可控-措施】P → 無措施1.0；梯田0.1
+
+C值跨三個數量級，是最大的人為控制槓桿
+P值透過農藝工法調整（等高耕、梯田）`,tags:["地圖","USLE","高頻"]},
+{id:"B-F07",sub:"水土保持工程",mode:"formula",front:`無限邊坡分析（淺層崩塌 FS）`,back:`FS = (c' + (γz cosα - u) tanφ') / (γz sinα cosα)
+
+c'：有效凝聚力；φ'：有效內摩擦角
+γ：土壤單位重；z：滑動面深度
+α：坡面角；u：孔隙水壓
+
+⚠️ u=0（無地下水）→ 計算最簡單
+⚠️ u=γw×hw（地下水至地面）→ FS大幅降低
+
+適用：深度<<坡長的均勻坡面淺層崩塌`,tags:["邊坡穩定","無限邊坡","計算","高頻"]},
+{id:"B-F08",sub:"水土保持工程",mode:"formula",front:`土石流潛勢溪流判定三條件`,back:`滿足任一條件即可能為土石流潛勢溪流：
+
+① 集水區面積 ≤ 3 km²
+② 溪床坡度 ≥ 10°（約18%）
+③ 溪谷內有足夠土石供應（崩塌地、堆積層）
+
+→ 另加：歷史曾發生土石流記錄
+→ 需同時規劃：工程（攔砂壩）+ 非工程（預警撤離）`,tags:["土石流","判定","法規","高頻"]},
+{id:"B-C11",sub:"水土保持工程",mode:"flash",front:`Bishop 圓弧法 vs 無限邊坡法 適用情境`,back:`無限邊坡法：
+• 深度<<坡長的均質淺層崩塌
+• 土層薄且均一，坡面延伸無限
+• 計算簡單（閉合公式）
+
+Bishop 圓弧法（最常用）：
+• 中深層圓弧滑動（深度/坡長>0.1）
+• 自然邊坡、填土邊坡均適用
+• 需分條計算（通常用軟體）
+• FS = ΣM_R / ΣM_D
+
+口訣：淺層→無限邊坡；深層圓弧→Bishop`,tags:["邊坡穩定","Bishop","高頻"]},
+{id:"B-C12",sub:"水土保持工程",mode:"flash",front:`基礎齒槎（Shear key）的功能與設計`,back:`功能：擋土牆底版下方突出的齒狀結構，增加抗滑阻力
+
+設計邏輯：
+• 齒槎深入地基一定深度，使土壤在更深處提供被動抵抗力（Passive resistance）
+• 等效增加底版有效摩擦面積
+• 在FS滑動不足時（<1.5）是最常見的改善手段
+
+其他改善抗滑的方法：
+① 加大底版寬度（增加自重+摩擦面）
+② 設置齒槎
+③ 改善地基土壤（夯實或換土）`,tags:["擋土牆","齒槎","觀念"]},
+{id:"B-C13",sub:"水土保持工程",mode:"flash",front:`溢洪道三種類型快速比較`,back:`溢流型（最常用）：水位超堰頂即自動流出，Q∝H^1.5，簡單可靠，一般農塘首選
+
+側流型：溢流口平行壩軸，大流量效率高，大型水庫用，施工較複雜
+
+虹吸型：啟動水位後流量急增，調控精準但易被異物堵塞，維護要求高
+
+選用口訣：小農塘→溢流型；大水庫→側流型；精密控水→虹吸型`,tags:["溢洪道","比較","觀念"]},
+{id:"B-C14",sub:"水土保持工程",mode:"flash",front:`生態廊道三個核心要素`,back:`① 縱向連通：確保魚類及底棲生物上下游自由移動
+→ 固床工落差<0.5m／設魚道／採透過型攔砂壩
+
+② 底質多樣性：保留天然礫石底質，維持異質性
+→ 禁止全斷面混凝土底板；補充礫石
+
+③ 濱溪植生：水岸植被帶維持陸水界面
+→ 護岸採乾砌石/石籠；補植水柳、楓楊
+
+台灣自108年起「生態檢核機制」將三要素納入強制要求`,tags:["生態廊道","觀念","高頻"]},
+{id:"B-C15",sub:"水土保持工程",mode:"flash",front:`坡腳保護（Toe protection）為何是護岸成敗關鍵`,back:`護岸最常見的失敗模式：坡腳被洪水掏空（Undermining）
+→ 即使護岸面完好，底部失去支撐 → 整體崩倒
+
+坡腳保護方式：
+① 拋石護腳（最常用，柔性，可適應沉陷）
+② 板樁打入深層（高沖刷風險場合）
+③ 護坦水平延伸（增大防沖面積）
+④ 深基礎嵌岩（最可靠，成本最高）
+
+設計原則：基礎埋深 ≥ 最大沖刷深度 + 安全餘裕0.5~1m`,tags:["護岸","坡腳保護","高頻"]},
+{id:"B-C16",sub:"水土保持工程",mode:"flash",front:`石籠護岸耐久年限與維護要點`,back:`耐久年限：
+鍍鋅鋼絲籠：20~30年（受腐蝕環境影響）
+PVC被覆石籠：可延長至30~50年
+
+常見失效模式：
+① 鋼絲腐蝕斷裂→填充石料散逸
+② 鋼絲被漂流木撞擊破壞
+③ 填充石料被逐漸沖走（若粒徑選用不足）
+
+維護要點：
+• 每年汛後巡查（確認鋼絲完整性）
+• 發現破損及早局部修補（避免擴大）
+• 出現沉陷時及時補充石料`,tags:["石籠","耐久","維護"]},
+{id:"B-C17",sub:"水土保持工程",mode:"flash",front:`排水溝縱坡與消能配合原則`,back:`縱坡<1%：流速不足→積砂→堵塞風險
+縱坡1~3%：適合大多數情況（自淨流速+不過快）
+縱坡>5%：通常已達超臨界流，需在坡降急轉處設消能設施
+縱坡>12%（超陡）：每隔適當距離必設跌水工（消能+調節流速）
+
+跌水工消能後流速 = 亞臨界流（Fr<1），可再接下一段
+→ 多級跌水工 = 陡坡排水溝的標準配套方案`,tags:["排水溝","縱坡","消能","觀念"]},
+{id:"B-M03",sub:"水土保持工程",mode:"map",front:`邊坡穩定分析方法選用地圖`,back:`【判斷滑動型態】
+淺層均質→無限邊坡法（閉合公式）
+深層圓弧→Bishop法（最常用，需分條）
+非圓弧複雜面→Janbu法
+岩石楔形→Sarma法
+
+【分析條件】
+施工期（快速加載）→總應力法（用cu）
+長期穩定→有效應力法（用c',φ'）
+
+【FS要求】
+靜態：永久≥1.5 / 臨時≥1.3
+地震：永久≥1.1 / 臨時≥1.0`,tags:["地圖","邊坡穩定","高頻"]},
+{id:"C-F07",sub:"水土保持規劃設計",mode:"formula",front:`水保法§23 罰則架構`,back:`未依規定申請核定水保計畫擅自開發：
+→ 罰鍰 6~30 萬元，限期改善
+→ 逾期未改善：按次連續處罰
+
+主管機關行政處分工具：
+① 停工命令（施工中違規）
+② 停止使用（完工但水保不完善）
+③ 廢止許可（取得核定後違規）
+④ 代為執行（費用全由義務人負擔）
+
+⚠️「按次連續處罰」= 每30~60天仍未改善可再罰，無上限`,tags:["水保法23條","罰則","法規","高頻"]},
+{id:"C-F08",sub:"水土保持規劃設計",mode:"formula",front:`水保計畫書標準章節架構`,back:`① 基本資料（地點、面積、申請人）
+② 地形地質調查（現地調查+鑽探資料）
+③ 水文分析（IDF曲線、設計流量）
+④ 土壤侵蝕評估（USLE計算）
+⑤ 水土保持設施設計（截排水、沉砂、滯洪）
+⑥ 施工計畫（分期施工、臨時防護、緊急應變）
+⑦ 植生計畫（目的種、施工時程、驗收標準）
+⑧ 維護管理計畫
+
+⚠️ 各章節需技師簽證`,tags:["計畫書架構","法規"]},
+{id:"C-C09",sub:"水土保持規劃設計",mode:"flash",front:`水保義務人在土地移轉後的責任`,back:`原則：「義務隨土地走」
+
+土地買賣後，新所有人承接原核定計畫的義務：
+• 未完成的設施 → 新所有人需完成
+• 竣工後維護責任 → 新所有人承接
+
+例外：已取得竣工核准並解除列管 → 後續所有人免承接特定義務
+
+義務人變更（更名）：向主管機關備查即可，計畫內容不變
+
+目的：防止透過土地移轉規避水保責任`,tags:["義務人","土地移轉","法規","高頻"]},
+{id:"C-C10",sub:"水土保持規劃設計",mode:"flash",front:`分期施工對沉砂池設計的影響`,back:`分期施工邏輯：
+同時裸露面積 = 當期施工面積（≠全部基地面積）
+
+影響效果（5ha基地分3期施工）：
+同時裸露：1.7ha vs 5ha
+尖峰流失量：降低約 66%
+沉砂池容量需求：同比例降低
+
+設計原則：以「單期最大同時裸露面積」設計沉砂池，而非全場面積
+
+⚠️ 分期施工是最低成本的水土流失控制手段（不需增加任何工程）`,tags:["分期施工","沉砂池","高頻"]},
+{id:"C-C11",sub:"水土保持規劃設計",mode:"flash",front:`崩塌地調查：現地 vs 室內分工`,back:`現地調查（掌握空間範圍）：
+• 崩塌位置、面積、深度
+• 滑動面型態（圓弧/平面/楔形）
+• 地下水跡象（滲流點、濕潤帶）
+• 裂縫位置與寬度（活動性指標）
+• 地層傾向傾角（順向坡判斷）
+
+室內分析（取得數值化參數）：
+• 粒徑分析（質地判斷）
+• 三軸試驗→c'、φ'
+• X光繞射→黏土礦物（蒙脫石=膨脹性風險）
+
+兩者合併→邊坡穩定分析FS計算`,tags:["崩塌調查","現地","室內","高頻"]},
+{id:"C-C12",sub:"水土保持規劃設計",mode:"flash",front:`土方平衡計畫設計原則`,back:`目標：開挖量（Cut）≈ 填方量（Fill），最小化廢土外運或借土
+
+廢土過多的正確處理（依序）：
+① 設置合法棄土場（需另申請水保計畫）
+② 填入鄰近低窪地（確認材質適合）
+❌ 禁止：傾倒至溪旁/坡腳（成為土石流物源）
+
+廢土不足→從合法土方供應場取土
+
+表土（0~30cm）：
+• 開發前先刮除、分區堆置≤2m高
+• 完工後第一優先回覆於植生區`,tags:["土方平衡","表土","高頻"]},
+{id:"C-C13",sub:"水土保持規劃設計",mode:"flash",front:`農路彎道超高與視距規定`,back:`彎道超高：
+外側路面抬高以抵抗離心力
+超高率 ≤ 8%（依速度與彎道半徑查表）
+水保意義：超高設計不良→橫向排水異常→集中沖蝕
+
+停車視距：
+10 km/h：≥ 15 m
+20 km/h：≥ 20 m
+30 km/h：≥ 30 m
+
+水保意義：視距不足→緊急剎車→輪胎拖痕→積水→沖蝕起始點`,tags:["農路","彎道","視距"]},
+{id:"C-C14",sub:"水土保持規劃設計",mode:"flash",front:`農塘滲漏評估方法與防滲設計`,back:`評估方法：
+① 現地水位觀測法：無雨無入流時，量測24hr水位下降量×水面積 = 日滲漏量（最常用）
+② 達西定律估算：由鑽探取K值，結合水頭差估算
+
+防滲設計（由低成本到高）：
+① 在自然黏土地層選址（最根本）
+② 黏土夯實底面（30~60cm）
+③ 噴漿護底（低成本）
+④ HDPE防滲膜（幾乎完全防滲，成本較高）`,tags:["農塘","滲漏","防滲"]},
+{id:"C-C15",sub:"水土保持規劃設計",mode:"flash",front:`農地整坡台階寬度與駁坎高度`,back:`台階寬度設計因素：
+• 農機操作需求：機械化耕作需≥3~4m
+• 原坡度：越陡可分配的水平寬度越小
+• 作物種類：果樹需較寬；茶園可較窄
+• 台階排水坡度：1~3%朝排水溝
+
+駁坎高度限制：
+• 土堤：通常<1m（超過需加強）
+• 石駁坎：可達1.5~2m
+• 混凝土駁坎：可更高但成本增加
+
+⚠️ 單階高度通常不超過1.5~2m，超過則需分階`,tags:["整坡","台階","駁坎"]},
+{id:"C-M03",sub:"水土保持規劃設計",mode:"map",front:`施工期臨時防護設施地圖`,back:`【第一道防線：截水溝】
+位置：開發區上坡側3~5m
+功能：攔截外來清水
+坡度：0.2~3%
+
+【第二道：排水溝】
+配置：施工區縱向貫穿
+出口→沉砂池
+
+【第三道：沉砂池】
+設置門檻：開發面積≥1ha
+容量：≥裸露面積(ha)×100m³/ha
+清淤：淤積達1/2有效容量
+
+【汛期緊急防護】
+PE布覆蓋→填縫→清淤→疏通`,tags:["地圖","臨時防護","高頻"]},
+{id:"D-F08",sub:"坡地水文學",mode:"formula",front:`集流時間計算（Kirpich公式）`,back:`tc = 0.0195 × (L³/H)^0.385（分鐘）
+L：坡面最長流路長度（m）
+H：最長流路起訖點高程差（m）
+
+也可用：tc = L / 60V（V = 坡面流速，m/s）
+
+影響因素：
+坡長↑ → tc↑；坡度↑ → tc↓；粗糙度↑ → tc↑（植生、裸地差異大）
+
+⚠️ 都市化後：鋪面降低粗糙度+管網加速集流 → tc大幅縮短`,tags:["集流時間","Kirpich","計算","高頻"]},
+{id:"D-F09",sub:"坡地水文學",mode:"formula",front:`水文循環各分量定義`,back:`截留（Interception）：植物葉面莖幹攔截降雨，部分直接蒸發
+入滲（Infiltration）：水由地表進入土壤表層
+滲漏（Percolation）：水在不飽和帶繼續向下移動
+滲流（Seepage）：地下水（飽和帶）中的側向流動
+蒸發散（ET）：土面蒸發 + 植物蒸散之和
+基流（Baseflow）：地下水緩慢排洩至河川（維持枯水期流量）
+壤中流（Interflow）：土壤中的側向流動（介於地表逕流與地下水之間）`,tags:["水文循環","定義","高頻"]},
+{id:"D-F10",sub:"坡地水文學",mode:"formula",front:`年超越機率計算（重現期風險）`,back:`年超越機率 p = 1/T
+
+n年內至少發生一次超越事件的機率：
+P = 1 - (1-p)^n
+
+常用組合（背起來）：
+T=10年，n=20年：P=1-0.9^20=87.8%
+T=50年，n=50年：P=1-0.98^50=63.6%
+T=100年，n=100年：P=1-0.99^100=63.4%
+T=200年，n=100年：P=1-0.995^100=39.4%
+
+設計意義：T=100年的設施，100年內仍有63%的機率被超越`,tags:["年超越機率","重現期","計算","高頻"]},
+{id:"D-C08",sub:"坡地水文學",mode:"flash",front:`基流分割三種方法比較`,back:`① 水平直線法：從漲水起點水平延伸至退水曲線
+→ 最簡單，但低估基流
+
+② 斜直線法：從漲水起點以遞減斜率連接至退水段反曲點
+→ 較合理，反映基流隨水位略增
+
+③ 退水曲線延伸法：以洪水前退水曲線型態延伸
+→ 物理基礎最強，但需洪前足夠長的退水資料
+
+用途：基流分割後才能得到直接逕流量（DRO）用於UH計算`,tags:["基流分割","比較"]},
+{id:"D-C09",sub:"坡地水文學",mode:"flash",front:`PET vs AET 差異與水平衡應用`,back:`PET（潛在蒸發散）：不受水分限制時的最大蒸發散量，僅由氣象決定（輻射、溫度、濕度、風速）
+AET（實際蒸發散）：受土壤含水量限制的實際值
+
+AET ≤ PET（永遠成立）
+
+土壤含水量>FC時：AET ≈ PET
+含水量在FC~WP間：AET線性遞減
+含水量<WP時：AET ≈ 0
+
+水平衡應用：P = AET + Q + ΔS
+→ 不可用PET替代AET（乾季時差異可達PET的50%以上）`,tags:["ET","水平衡","觀念","高頻"]},
+{id:"D-C10",sub:"坡地水文學",mode:"flash",front:`雙累積曲線的用途與資料校正`,back:`用途：偵測雨量站資料的系統性誤差（如儀器遷移）
+
+繪製：待查站累積雨量（Y軸）vs 鄰近站平均累積雨量（X軸）
+正常→直線；折點→資料不一致
+
+折點成因：儀器遷移、周邊土地利用改變、記錄錯誤
+
+資料校正：
+以折點前段斜率k₁為基準
+校正係數 = k₁/k₂
+折點後各年校正雨量 = 原始雨量 × (k₁/k₂)
+
+⚠️ 只能偵測系統性誤差（整體偏高/低），無法偵測隨機誤差`,tags:["雙累積曲線","資料校正"]},
+{id:"D-C11",sub:"坡地水文學",mode:"flash",front:`設計暴雨雨型：SCS Type II vs 三角形雨型`,back:`SCS Type II：
+• 美國土壤保育局依大量實測統計
+• 峰值集中在降雨延時中段（約40~60%處）
+• 較貼合實際暴雨統計特性
+• 廣泛應用於美國及國際工程
+
+三角形雨型：
+• 簡化假設，線性升至峰值再線性降
+• 峰值位於總延時的30~50%處
+• 計算最簡便
+• 精度較差，適合初步估算
+
+台灣水保計畫：SCS或當地推導雨型為主`,tags:["設計暴雨","雨型","比較"]},
+{id:"D-C12",sub:"坡地水文學",mode:"flash",front:`壤中流（Interflow）形成機制與水文意義`,back:`形成機制：
+降雨入滲後，遇到不透水層（或透水性差異層）
+→ 水分在介面上方側向流動（沿坡向）
+→ 最終在坡腳或溪岸滲出
+
+水文意義：
+• 流速介於地表逕流（快）與地下水（慢）之間
+• 貢獻洪水歷線的後段與退水段（延長退水時間）
+• 使退水曲線較緩和（不像純地表逕流那麼陡降）
+
+植生茂密的坡地：壤中流比例高 → 洪峰較低且退水更緩`,tags:["壤中流","觀念"]},
+{id:"D-C13",sub:"坡地水文學",mode:"flash",front:`IDF 曲線的建立步驟（5步）`,back:`① 收集長期（≥20年）逐分鐘雨量資料
+② 萃取各延時（5/10/30/60min、2/6/24hr）的年最大降雨量（AMS）
+③ 各延時分別進行頻率分析（Log-Pearson III），推估各重現期設計雨量
+④ 換算為雨強（mm/hr）
+⑤ 配合數學公式擬合（i = aT^b/(t+c)^d）建立IDF公式
+
+為何用「當地」IDF？
+台灣南北差異大（台東年雨量可達北部3倍），全國統一曲線會嚴重低估或高估`,tags:["IDF","建立步驟","高頻"]},
+{id:"D-M03",sub:"坡地水文學",mode:"map",front:`設計洪水推估方法選用地圖`,back:`【有長期流量記錄（≥20年）＋大中型集水區】
+→ 頻率分析法（Log-Pearson III）
+直接從實測資料推估，最可靠
+
+【無流量記錄或小型集水區（<5km²）】
+→ 合理化公式：Q=CiA/360
+→ 單位歷線法（UH）
+從IDF降雨推算洪峰
+
+台灣現況：
+絕大多數山坡地開發案無流量站
+→ 水保計畫幾乎100%用合理化公式
+
+設計重現期：臨時設施10年 / 永久設施25年`,tags:["地圖","設計洪水","高頻"]},
+{id:"E-F05",sub:"植生工程",mode:"formula",front:`Shannon-Wiener 多樣性指數 H'`,back:`H' = -Σ(pᵢ × ln pᵢ)
+pᵢ = 第i物種個體數 / 總個體數
+
+均勻度指數：J = H' / ln(S)（S = 物種數）
+J接近1 = 各物種分布均勻；J接近0 = 單一物種高度優勢
+
+典型值：
+健康天然林：H' > 2.0
+人工造林：H' ≈ 0.5~1.5
+裸地初期：H' ≈ 0~0.5
+
+VS IVI：H'看整體多樣性；IVI看單一物種在群落的地位`,tags:["Shannon","多樣性","計算"]},
+{id:"E-F06",sub:"植生工程",mode:"formula",front:`植生材料適用坡度與場合`,back:`直播（種子撒播）：坡度 < 1:1.5（約34°），地表土壤尚可，成本最低
+植生帶（草皮捲）：坡度 < 1:1.5，即時覆蓋效果最好，成本較高
+客土噴植：坡度可達1:0.3（約73°），搭配格框或金屬網可近垂直，貧瘠裸露坡適用
+扦插（活植物）：坡度 < 1:1（45°），需要有土壤基盤，溪岸最常用
+苗木栽植（容器苗）：適用所有坡度，成本最高，存活率最高`,tags:["植生材料","坡度","高頻"]},
+{id:"E-C11",sub:"植生工程",mode:"flash",front:`苗木三種規格比較`,back:`容器苗（最常用）：
+• 根系完整在容器土壤中，移植衝擊最小
+• 存活率最高（85~95%），但成本較高
+
+裸根苗：
+• 根系裸露，移植需在休眠期（冬季）
+• 成本低，但存活率較低（60~75%）
+• 適合大量種植、不要求高存活率的場合
+
+播種苗（直播）：
+• 直接在坡面播種，存活率最低
+• 成本極低，適合大面積快速覆蓋（百喜草等）`,tags:["苗木規格","比較","觀念"]},
+{id:"E-C12",sub:"植生工程",mode:"flash",front:`礦區土壤改良四種材料選用`,back:`石灰（CaCO₃）：中和酸性（pH<5時施用），消除Al³⁺毒性
+→ 酸性礦排水（AMD）地區首選
+
+石膏（CaSO₄）：Ca²⁺置換Na⁺，改善鹼性/鈉質土結構
+→ 不改變pH，針對結構問題
+
+有機質（堆肥）：改善土壤結構+保水保肥+微生物基質
+→ 幾乎所有貧瘠地通用
+
+保水劑（PAM）：吸水形成凝膠，延緩乾旱期水分流失
+→ 乾旱地區或砂質土的苗木初期養護`,tags:["礦區","土壤改良","四種材料","高頻"]},
+{id:"E-C13",sub:"植生工程",mode:"flash",front:`生物工程 vs 傳統植生工程的根本差異`,back:`傳統植生工程：植物是「配角」（護坡結構由石材/混凝土提供，植生只提供覆蓋）
+
+生物工程（Bioengineering）：活植物材料「本身就是工程結構元素」
+→ 活木樁、柳枝束、層積扦插
+→ 植物同時是「建材」+「生長體」
+
+最大差異：
+傳統工程：強度隨時間老化降低
+生物工程：強度隨根系生長持續增加
+
+⚠️ 必要條件：植物必須存活，故適地適種是生物工程成功的前提`,tags:["生物工程","觀念","高頻"]},
+{id:"E-C14",sub:"植生工程",mode:"flash",front:`植生工程施工季節選擇原則`,back:`最佳播種/種植時機：
+草本種子：梅雨前1~2個月（4~5月）或颱風季後（10~11月）
+→ 種植後立即有雨水供給，發芽率最高
+
+苗木栽植：春季萌芽前或秋季落葉後
+→ 植物蒸散最低，成活率最高
+
+避開時機：
+夏季高溫乾旱期（容易苗木失水死亡）
+颱風季施工期（種植完成即遭沖刷）
+
+海拔影響：高海拔生長季短（5~10月），播種要更提前`,tags:["施工季節","觀念","高頻"]},
+{id:"E-C15",sub:"植生工程",mode:"flash",front:`台灣先鋒喬木生態特性快速比較`,back:`台灣相思：
+• 豆科固氮、根瘤菌、耐貧瘠、生長快
+• 最常用的崩塌地木本先鋒
+
+山黃麻：
+• 生長極快（年生長可達2m）、鄉土種
+• 光線敏感，強陽性先鋒，隨後被耐蔭種取代
+
+血桐：
+• 生長速度快、落葉分解快（有機質回歸迅速）
+• 常見於低海拔、次生林早期
+
+白匏子：
+• 耐貧瘠，多層次次生林中的重要組成
+
+三者都屬陽性先鋒，最終會被耐蔭的原始林樹種取代`,tags:["先鋒喬木","比較","台灣"]},
+{id:"E-C16",sub:"植生工程",mode:"flash",front:`碳匯：森林植生 vs 草本植生差異`,back:`森林植生（喬木）：
+• 碳儲存量遠高（每公頃數十至上百ton C）
+• 碳儲存穩定，可維持數十~數百年
+• 主要碳庫：地上木質部
+• 缺點：固碳速率初期慢
+
+草本植生：
+• 碳儲存量低，週轉快（枯死後碳較快釋回）
+• 但初期固碳速率快，對土壤有機碳貢獻直接
+
+崩塌地復育策略（草本先鋒→木本目的種）恰好同時兼顧：
+短期快速碳匯（草本）+ 長期穩定大量碳匯（木本）`,tags:["碳匯","觀念"]},
+{id:"E-C17",sub:"植生工程",mode:"flash",front:`表土保護與回覆的操作程序（5步）`,back:`① 施工前先刮除表土（0~30cm，在機具進場前完成）
+② 分區堆置，高度≤2m（避免底層壓實缺氧破壞微生物）
+③ 堆置期維持植生覆蓋（撒草種或覆稻草，防表土本身流失）
+④ 完工後「優先」回覆於植生區，厚度≥20cm
+⑤ 堆置期<2年（超過2年種子庫活力降低，可能需補充種子）
+
+重要性：表土含種子庫+微生物相+有機質，是「最廉價的鄉土種復育材料」，一旦丟棄難以替代`,tags:["表土保護","回覆","高頻"]},
+{id:"E-C18",sub:"植生工程",mode:"flash",front:`目標植群設定方法（鄰近自然林調查）`,back:`設定步驟：
+① 在施工地「鄰近成熟天然林」設樣區（未受干擾，代表潛在植被）
+② 進行植生群落調查（每木調查、IVI計算）
+③ 確認各層次優勢種（喬木/亞喬木/灌木/草本）
+④ 設定「功能群落結構」作為目標（多層次、鄉土種為主、含固氮植物）
+⑤ 依目標植群規劃引入時序（先鋒種→中期種→目的種）
+
+⚠️ 目標植群不要求完全複製鄰近自然林，而是設定可達成的功能性目標`,tags:["目標植群","鄰近自然林","觀念"]},
+{id:"E-M03",sub:"植生工程",mode:"map",front:`植生工程材料選擇決策地圖`,back:`【第一問：有無土壤基盤？】
+有土壤→可直播或噴植
+無土壤（裸岩）→需格框+客土噴植
+
+【第二問：坡度多陡？】
+<34°（1:1.5）→直播/植生帶可行
+34~73°→客土噴植（需黏著劑）
+>73°→需金屬網+長錨釘固定後噴植
+
+【第三問：環境逆境？】
+酸性礦區→香茅草+石灰改良
+高海拔→高山適生種+格框
+海岸鹽分→耐鹽種（馬鞍藤等）
+溪岸→耐濕耐沖種（水柳、甜根子草）`,tags:["地圖","材料選擇","高頻"]}
+];
+
+// ════════════════════════════════════════
+//  字卡狀態
+// ════════════════════════════════════════
+var ckInitDone = false;
+var ckSub = 'all', ckModeFilter = 'all', ckTag = null, ckMode = 'formula';
+var ckDeck = [], ckIdx = 0, ckFlipped = false;
+var ckAgainQ = [];
+
+function ckSubIcon(s) {
+  return {'土壤物理與沖蝕':'🪨','水土保持工程':'🏗','水土保持規劃設計':'📋','坡地水文學':'💧','植生工程':'🌿'}[s]||'📌';
+}
+function ckSubColor(s) {
+  return {'土壤物理與沖蝕':'#7C4A1E','水土保持工程':'#2B6347','水土保持規劃設計':'#1A4B8C','坡地水文學':'#0B5D8F','植生工程':'#3D7A47'}[s]||'#555';
+}
+function ckEsc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function ckGetFiltered(modeOvr) {
+  return CARDS.filter(function(c) {
+    var subOk = ckSub==='all' || c.sub===ckSub;
+    var m = modeOvr || ckModeFilter;
+    var modeOk = m==='all' || c.mode===m;
+    var tagOk = !ckTag || c.tags.indexOf(ckTag) !== -1;
+    return subOk && modeOk && tagOk;
+  });
+}
+
+function ckUpdateCount() {
+  var n;
+  if (ckMode==='formula') n = ckGetFiltered('formula').length;
+  else if (ckMode==='map') n = ckGetFiltered('map').length;
+  else n = ckGetFiltered().length;
+  var lbl = '顯示 '+n+' 張';
+  if (ckSub!=='all') lbl += ' ｜ '+ckSub;
+  if (ckTag) lbl += ' ｜ ⭐ 高頻';
+  document.getElementById('ckCntBar').textContent = lbl;
+}
+
+function ckSetSub(el) {
+  document.querySelectorAll('#ckSubBar .ck-chip').forEach(function(c){c.classList.remove('on')});
+  el.classList.add('on');
+  ckSub = el.dataset.sub;
+  ckRender();
+}
+function ckSetMode(el) {
+  ckTag = null;
+  document.querySelectorAll('#ckFlashSub .ck-chip').forEach(function(c){c.classList.remove('on')});
+  el.classList.add('on');
+  ckModeFilter = el.dataset.mode;
+  ckRenderFlash();
+}
+function ckSetTag(el) {
+  document.querySelectorAll('#ckFlashSub .ck-chip').forEach(function(c){c.classList.remove('on')});
+  if (ckTag==='高頻') {
+    ckTag=null;
+    document.querySelector('#ckFlashSub [data-mode="all"]').classList.add('on');
+  } else {
+    ckTag='高頻'; el.classList.add('on');
+  }
+  ckRenderFlash();
+}
+
+function ckSwitchMode(m) {
+  ckMode = m;
+  document.querySelectorAll('.ck-tab').forEach(function(t,i){
+    t.classList.toggle('active', ['formula','flash','map'][i]===m);
+  });
+  document.getElementById('ckFlashSub').style.display = (m==='flash') ? 'flex' : 'none';
+  ckRender();
+}
+
+function ckRender() {
+  if (ckMode==='formula') ckRenderFormula();
+  else if (ckMode==='flash') ckRenderFlash();
+  else ckRenderMap();
+}
+
+// ── 公式速查 ──
+function ckRenderFormula() {
+  var el = document.getElementById('ck-formula');
+  el.innerHTML = ''; el.style.display = 'flex';
+  document.getElementById('ck-flash').style.display = 'none';
+  document.getElementById('ck-map').style.display = 'none';
+  var cards = ckGetFiltered('formula');
+  ckUpdateCount();
+  if (!cards.length) { el.innerHTML='<div style="text-align:center;color:#999;padding:40px 0">此科目暫無公式卡</div>'; return; }
+  cards.forEach(function(c) {
+    var isHF = c.tags.indexOf('高頻') !== -1;
+    var col = ckSubColor(c.sub);
+    var d = document.createElement('div');
+    d.className = 'ck-fc';
+    d.innerHTML = '<div class="ck-fc-head" style="background:'+col+'">'+
+      ckSubIcon(c.sub)+' '+ckEsc(c.front)+
+      (isHF?'<span class="ck-hf-badge">⭐高頻</span>':'')+'</div>'+
+      '<div class="ck-fc-body">'+ckEsc(c.back)+'</div>';
+    d.querySelector('.ck-fc-head').onclick = function(){ ckShowDetail(c); };
+    el.appendChild(d);
+  });
+}
+
+// ── 閃卡 ──
+function ckShuffle(arr) {
+  for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;}
+  return arr;
+}
+function ckRenderFlash() {
+  document.getElementById('ck-formula').style.display = 'none';
+  document.getElementById('ck-flash').style.display = 'block';
+  document.getElementById('ck-map').style.display = 'none';
+  document.getElementById('ckAgainChip').style.display = ckAgainQ.length > 0 ? 'inline-block' : 'none';
+  ckDeck = ckShuffle(ckGetFiltered());
+  ckIdx = 0; ckFlipped = false;
+  ckUpdateCount();
+  ckShowCard();
+}
+function ckShowCard() {
+  var inner = document.getElementById('ckInner');
+  inner.classList.remove('flipped'); ckFlipped = false;
+  document.getElementById('ckBtns').style.display = 'none';
+  if (ckIdx >= ckDeck.length) {
+    document.getElementById('ckArea').style.pointerEvents = 'none';
+    var hasAgain = ckAgainQ.length > 0;
+    inner.innerHTML = '<div class="ck-front"><div class="ck-done">'+
+      '<h2>'+(hasAgain?'這輪完成 ✓':'全部掌握 🎉')+'</h2>'+
+      '<p>'+(hasAgain?'還有 '+ckAgainQ.length+' 張待再練':'所有卡片都掌握了！')+'</p>'+
+      '<button class="ck-restart" onclick="ckRenderFlash()">重新練習</button>'+
+      (hasAgain?'<br><br><button class="ck-restart" style="background:#B45309;margin-top:8px" onclick="ckPracticeAgain()">只練再練（'+ckAgainQ.length+'張）</button>':'')+'</div></div>'+
+      '<div class="ck-back"></div>';
+    document.getElementById('ckCnt').textContent = ckDeck.length+'/'+ckDeck.length;
+    document.getElementById('ckFill').style.width = '100%';
+    document.getElementById('ckAgainChip').style.display = hasAgain ? 'inline-block' : 'none';
+    return;
+  }
+  document.getElementById('ckArea').style.pointerEvents = '';
+  var c = ckDeck[ckIdx];
+  document.getElementById('ckCnt').textContent = ckIdx+'/'+ckDeck.length;
+  document.getElementById('ckFill').style.width = (ckIdx/ckDeck.length*100)+'%';
+  document.getElementById('ckSub').textContent = ckSubIcon(c.sub)+'  '+c.sub+(c.tags.indexOf('高頻')!==-1?'  ⭐':'');
+  document.getElementById('ckQ').textContent = c.front;
+  document.getElementById('ckAns').textContent = c.back;
+}
+function ckPracticeAgain() {
+  ckDeck = ckShuffle(ckAgainQ.slice()); ckAgainQ = []; ckIdx = 0; ckFlipped = false;
+  // 重置 inner
+  document.getElementById('ckInner').innerHTML =
+    '<div class="ck-front"><div class="ck-sub-tag" id="ckSub"></div>'+
+    '<div class="ck-q" id="ckQ"></div><div class="ck-hint">點擊翻面看答案</div></div>'+
+    '<div class="ck-back"><div class="ck-ans-lbl">解答</div><div class="ck-ans" id="ckAns"></div></div>';
+  document.getElementById('ckArea').style.pointerEvents = '';
+  ckShowCard();
+}
+function ckFlip() {
+  if (ckIdx >= ckDeck.length) return;
+  ckFlipped = !ckFlipped;
+  document.getElementById('ckInner').classList.toggle('flipped', ckFlipped);
+  document.getElementById('ckBtns').style.display = ckFlipped ? 'flex' : 'none';
+}
+function ckMark(got) {
+  if (!got) ckAgainQ.push(ckDeck[ckIdx]);
+  ckIdx++;
+  document.getElementById('ckInner').classList.remove('flipped');
+  ckFlipped = false;
+  document.getElementById('ckBtns').style.display = 'none';
+  setTimeout(ckShowCard, 120);
+}
+
+// ── 知識地圖 ──
+function ckRenderMap() {
+  document.getElementById('ck-formula').style.display = 'none';
+  document.getElementById('ck-flash').style.display = 'none';
+  var mapEl = document.getElementById('ck-map');
+  mapEl.style.display = 'flex'; mapEl.innerHTML = '';
+  ckUpdateCount();
+  var SUBS = ['土壤物理與沖蝕','水土保持工程','水土保持規劃設計','坡地水文學','植生工程'];
+  SUBS.forEach(function(sub) {
+    if (ckSub !== 'all' && ckSub !== sub) return;
+    var allSub = CARDS.filter(function(c){return c.sub===sub;});
+    if (!allSub.length) return;
+    var mapCards  = allSub.filter(function(c){return c.mode==='map';});
+    var fmCards   = allSub.filter(function(c){return c.mode==='formula';});
+    var hfFlash   = allSub.filter(function(c){return c.mode==='flash' && c.tags.indexOf('高頻')!==-1;});
+    var otFlash   = allSub.filter(function(c){return c.mode==='flash' && c.tags.indexOf('高頻')===-1;});
+    var col = ckSubColor(sub);
+    var g = document.createElement('div'); g.className = 'ck-mg';
+    var head = document.createElement('div'); head.className = 'ck-mg-head open';
+    head.innerHTML = '<div class="ck-icon" style="background:'+col+'22;color:'+col+'">'+ckSubIcon(sub)+'</div>'+
+      '<div class="ck-mg-title">'+sub+'</div>'+
+      '<span class="ck-mg-badge">'+allSub.length+'張</span>'+
+      '<span class="ck-mg-arr">▼</span>';
+    var body = document.createElement('div'); body.className = 'ck-mg-body show';
+    head.onclick = function(){ this.classList.toggle('open'); body.classList.toggle('show'); };
+    function addSep(label){ var s=document.createElement('div');s.style.cssText='font-size:10px;font-weight:700;color:#999;letter-spacing:.08em;margin:10px 0 4px';s.textContent=label;body.appendChild(s);}
+    function addItem(c,mode){ var item=document.createElement('div');item.className='ck-mi';var isHF=c.tags.indexOf('高頻')!==-1;var pre=c.back.split('\n').slice(0,2).join(' · ');if(pre.length>90)pre=pre.substring(0,90)+'…';item.innerHTML='<div class="ck-mi-title"><span class="ck-tag '+mode+'">'+(mode==='formula'?'公式':mode==='map'?'地圖':'閃卡')+'</span>'+(isHF?'<span class="ck-tag hf">⭐高頻</span>':'')+ckEsc(c.front)+'</div><div class="ck-mi-pre">'+ckEsc(pre)+'</div>';item.onclick=function(){ckShowDetail(c);};body.appendChild(item);}
+    mapCards.forEach(function(c){addItem(c,'map');});
+    if(fmCards.length){addSep('── 公式速查');fmCards.forEach(function(c){addItem(c,'formula');});}
+    if(hfFlash.length||otFlash.length){addSep('── 觀念閃卡');hfFlash.forEach(function(c){addItem(c,'flash');});otFlash.forEach(function(c){addItem(c,'flash');});}
+    g.appendChild(head); g.appendChild(body); mapEl.appendChild(g);
+  });
+}
+
+// ── 詳情 overlay ──
+function ckShowDetail(c) {
+  var mn = {formula:'📋 公式速查',flash:'🃏 閃卡',map:'🗺 知識地圖'};
+  document.getElementById('ckOvMode').textContent = (mn[c.mode]||c.mode)+' · '+c.sub;
+  document.getElementById('ckOvTitle').textContent = c.front;
+  document.getElementById('ckOvContent').textContent = c.back;
+  document.getElementById('ckOv').classList.add('show');
+}
+function ckCloseOv(e) {
+  if (!e || e.target===document.getElementById('ckOv'))
+    document.getElementById('ckOv').classList.remove('show');
+}
+
+// ── 初始化 ──
+function ckInit() { ckRender(); }
+
 </script>
+</div><!-- /qbModule -->
+
+<!-- ════════ 字卡模組 ════════ -->
+<div id="cardModule">
+<div class="ck-tabs">
+  <button class="ck-tab active" onclick="ckSwitchMode('formula')">📋 公式速查</button>
+  <button class="ck-tab" onclick="ckSwitchMode('flash')">🃏 閃卡練習</button>
+  <button class="ck-tab" onclick="ckSwitchMode('map')">🗺 知識地圖</button>
+</div>
+
+<div class="ck-fbar" id="ckSubBar">
+  <span class="ck-fl">科目：</span>
+  <span class="ck-chip on" data-sub="all" onclick="ckSetSub(this)">全部</span>
+  <span class="ck-chip" data-sub="土壤物理與沖蝕" onclick="ckSetSub(this)">土壤沖蝕</span>
+  <span class="ck-chip" data-sub="水土保持工程" onclick="ckSetSub(this)">水保工程</span>
+  <span class="ck-chip" data-sub="水土保持規劃設計" onclick="ckSetSub(this)">規劃設計</span>
+  <span class="ck-chip" data-sub="坡地水文學" onclick="ckSetSub(this)">坡地水文</span>
+  <span class="ck-chip" data-sub="植生工程" onclick="ckSetSub(this)">植生工程</span>
+</div>
+
+<div class="ck-subfilter" id="ckFlashSub" style="display:none">
+  <span class="ck-fl">類型：</span>
+  <span class="ck-chip on" data-mode="all" onclick="ckSetMode(this)">全部</span>
+  <span class="ck-chip" data-mode="formula" onclick="ckSetMode(this)">公式</span>
+  <span class="ck-chip" data-mode="flash" onclick="ckSetMode(this)">閃卡</span>
+  <span class="ck-chip" data-mode="map" onclick="ckSetMode(this)">地圖</span>
+  <span class="ck-chip amber" data-tag="高頻" onclick="ckSetTag(this)">⭐ 高頻</span>
+  <span class="ck-chip blue" id="ckAgainChip" style="display:none" onclick="ckPracticeAgain()">🔁 再練</span>
+</div>
+
+<div class="ck-cntbar" id="ckCntBar">136 張卡片</div>
+
+<!-- 公式速查 -->
+<div id="ck-formula" style="display:flex;flex-direction:column;padding:12px 14px;gap:10px"></div>
+
+<!-- 閃卡 -->
+<div id="ck-flash">
+  <div class="ck-fnav">
+    <div class="ck-prog"><div class="ck-prog-fill" id="ckFill"></div></div>
+    <span class="ck-cnt" id="ckCnt">0/0</span>
+  </div>
+  <div class="ck-area" id="ckArea" onclick="ckFlip()">
+    <div class="ck-inner" id="ckInner">
+      <div class="ck-front">
+        <div class="ck-sub-tag" id="ckSub"></div>
+        <div class="ck-q" id="ckQ"></div>
+        <div class="ck-hint">點擊翻面看答案</div>
+      </div>
+      <div class="ck-back">
+        <div class="ck-ans-lbl">解答</div>
+        <div class="ck-ans" id="ckAns"></div>
+      </div>
+    </div>
+  </div>
+  <div class="ck-btns" id="ckBtns" style="display:none">
+    <button class="ck-btn again" onclick="ckMark(false)">✕ 再練一次</button>
+    <button class="ck-btn got" onclick="ckMark(true)">✓ 已掌握</button>
+  </div>
+</div>
+
+<!-- 知識地圖 -->
+<div id="ck-map" style="display:none;padding:12px 14px;flex-direction:column;gap:8px"></div>
+
+<!-- 詳情 overlay -->
+<div class="ck-ov" id="ckOv" onclick="ckCloseOv(event)">
+  <div class="ck-ov-box">
+    <div class="ck-ov-mode" id="ckOvMode"></div>
+    <div class="ck-ov-title" id="ckOvTitle"></div>
+    <div class="ck-ov-content" id="ckOvContent"></div>
+    <button class="ck-ov-close" onclick="ckCloseOv()">關閉</button>
+  </div>
+</div>
+</div><!-- /cardModule -->
+
 </body>
 </html>
